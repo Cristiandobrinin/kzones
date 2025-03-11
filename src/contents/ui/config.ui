@@ -292,6 +292,16 @@
             </item>
            </layout>
           </item>
+          <item>
+           <widget class="QCheckBox" name="kcfg_enableAdvancedEdgeSnapping">
+            <property name="text">
+             <string>Enable Advanced Edge Snapping</string>
+            </property>
+            <property name="toolTip">
+             <string>When enabled, moving your cursor to different screen edges will automatically change layouts</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -444,6 +454,69 @@
         ]
     }
 ]</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_edgeSnappingLayouts">
+      <attribute name="icon">
+       <iconset theme="preferences-desktop-virtual">
+        <normaloff>../../../../../../../../.designer/backup</normaloff>../../../../../../../../.designer/backup</iconset>
+      </attribute>
+      <attribute name="title">
+       <string>Edge Snapping Layouts</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QGroupBox" name="groupBox_edgeSnappingLayouts">
+         <property name="title">
+          <string>Edge Snapping Layouts Configuration</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_7">
+          <item>
+           <widget class="QLabel" name="label_edgeSnappingLayoutsExplanation">
+            <property name="text">
+             <string>Configure which layouts should be activated when the cursor approaches different screen edges. The configuration uses JSON format with zones like: right-edge, right-top-edge, right-bottom-edge, top-right, etc.</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPlainTextEdit" name="kcfg_edgeSnappingLayoutsJson">
+            <property name="plainText">
+             <string>{
+    "zones": {
+        "right-edge": 0,
+        "right-top-edge": 1,
+        "right-bottom-edge": 0,
+        "top-right": 1,
+        "bottom-right": 0,
+        "center-right": 0,
+        "center-left": 1,
+        "center-bottom": 0,
+        "center-top": 1,
+        "center-top-left": 1,
+        "center-top-right": 1,
+        "center-bottom-left": 0,
+        "center-bottom-right": 0,
+        "left-edge": 1,
+        "left-top-edge": 1,
+        "left-bottom-edge": 1,
+        "top-left": 1,
+        "bottom-left": 0
+    },
+    "distances": {
+        "far": [30, 15],
+        "medium": [15, 5],
+        "close": [5, 0]
+    }
+}</string>
             </property>
            </widget>
           </item>

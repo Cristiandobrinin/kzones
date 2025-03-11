@@ -30,6 +30,7 @@ PlasmaCore.Dialog {
     property var config: ({})
     property bool showZoneOverlay: config.zoneOverlayShowWhen == 0
     property var errors: []
+    property string currentEdgeSnappingZone: ""
 
     location: PlasmaCore.Types.Floating
     type: PlasmaCore.Dialog.OnScreenDisplay
@@ -94,6 +95,8 @@ PlasmaCore.Dialog {
             enableEdgeSnapping: KWin.readConfig("enableEdgeSnapping", false),
             // distance from the edge of the screen to trigger the edge snapping
             edgeSnappingTriggerDistance: KWin.readConfig("edgeSnappingTriggerDistance", 1),
+            // enable advanced edge snapping
+            enableAdvancedEdgeSnapping: KWin.readConfig("enableAdvancedEdgeSnapping", false),
             // remember window geometries before snapping to a zone, and restore them when the window is removed from their zone
             rememberWindowGeometries: KWin.readConfig("rememberWindowGeometries", true),
             // track active layout per screen
@@ -120,6 +123,74 @@ PlasmaCore.Dialog {
             enableDebugOverlay: KWin.readConfig("enableDebugOverlay", false)
         };
 
+        // Load edge snapping layouts configuration
+        try {
+            const defaultEdgeSnappingConfig = {
+                zones: {
+                    "right-edge": 0,
+                    "right-top-edge": 1,
+                    "right-bottom-edge": 0,
+                    "top-right": 1,
+                    "bottom-right": 0,
+                    "center-right": 0,
+                    "center-left": 1,
+                    "center-bottom": 0,
+                    "center-top": 1,
+                    "center-top-left": 1,
+                    "center-top-right": 1,
+                    "center-bottom-left": 0,
+                    "center-bottom-right": 0,
+                    "left-edge": 1,
+                    "left-top-edge": 1,
+                    "left-bottom-edge": 1,
+                    "top-left": 1,
+                    "bottom-left": 0
+                },
+                distances: {
+                    "far": [30, 15],
+                    "medium": [15, 5],
+                    "close": [5, 0]
+                }
+            };
+            
+            const edgeSnappingLayoutsJson = KWin.readConfig("edgeSnappingLayoutsJson", JSON.stringify(defaultEdgeSnappingConfig));
+            config.edgeSnappingLayouts = JSON.parse(edgeSnappingLayoutsJson);
+            
+            if (!config.edgeSnappingLayouts.zones || !config.edgeSnappingLayouts.distances) {
+                log("Invalid edge snapping configuration, using default");
+                config.edgeSnappingLayouts = defaultEdgeSnappingConfig;
+            }
+        } catch (e) {
+            errors = errors.concat(`Could not load edge snapping layouts from configuration, using default.\nError: ${e.message}`);
+            config.edgeSnappingLayouts = {
+                zones: {
+                    "right-edge": 0,
+                    "right-top-edge": 1,
+                    "right-bottom-edge": 0,
+                    "top-right": 1,
+                    "bottom-right": 0,
+                    "center-right": 0,
+                    "center-left": 1,
+                    "center-bottom": 0,
+                    "center-top": 1,
+                    "center-top-left": 1,
+                    "center-top-right": 1,
+                    "center-bottom-left": 0,
+                    "center-bottom-right": 0,
+                    "left-edge": 1,
+                    "left-top-edge": 1,
+                    "left-bottom-edge": 1,
+                    "top-left": 1,
+                    "bottom-left": 0
+                },
+                distances: {
+                    "far": [30, 15],
+                    "medium": [15, 5],
+                    "close": [5, 0]
+                }
+            };
+        }
+
         log("Config loaded: " + JSON.stringify(config));
     }
 
@@ -143,6 +214,7 @@ PlasmaCore.Dialog {
         zoneSelector.near = false;
         zoneSelector.fullscreenRequested = false;
         highlightedZone = -1;
+        currentEdgeSnappingZone = "";
         showZoneOverlay = config.zoneOverlayShowWhen == 0;
     }
 
@@ -749,6 +821,11 @@ PlasmaCore.Dialog {
                     }
                 }
 
+                // Advanced edge snapping - check if we should change layouts based on cursor position
+                if (config.enableAdvancedEdgeSnapping && !zoneSelector.fullscreenRequested && !isVeryCloseToTop) {
+                    checkAdvancedEdgeSnapping();
+                }
+
                 // if hovering zone changed from the last frame
                 if (hoveringZone != highlightedZone) {
                     log("Highlighting zone " + hoveringZone + " in layout " + currentLayout);
@@ -797,7 +874,11 @@ PlasmaCore.Dialog {
                     oldGeometry: Workspace.activeWindow?.oldGeometry,
                     activeScreen: activeScreen?.name,
                     currentLayout: currentLayout,
-                    screenLayouts: screenLayouts
+                    screenLayouts: screenLayouts,
+                    advancedEdgeSnapping: {
+                        enabled: config.enableAdvancedEdgeSnapping,
+                        currentZone: currentEdgeSnappingZone
+                    }
                 })
                 errors: mainDialog.errors
                 config: mainDialog.config
@@ -816,6 +897,55 @@ PlasmaCore.Dialog {
                 config: mainDialog.config
                 currentLayout: mainDialog.currentLayout
                 highlightedZone: mainDialog.highlightedZone
+            }
+
+            // Advanced Edge Snapping Indicator
+            Rectangle {
+                id: edgeSnappingIndicator
+                
+                visible: config.enableAdvancedEdgeSnapping && currentEdgeSnappingZone !== ""
+                width: 120
+                height: 30
+                radius: 5
+                color: Qt.rgba(0.2, 0.6, 1.0, 0.8)
+                border.color: Qt.rgba(0.3, 0.7, 1.0, 1.0)
+                border.width: 1
+                
+                // Position in the top-right corner
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.margins: 10
+                
+                Text {
+                    anchors.centerIn: parent
+                    text: "Zone: " + currentEdgeSnappingZone
+                    color: "white"
+                    font.pixelSize: 12
+                }
+                
+                // Add a subtle pulsing animation
+                SequentialAnimation {
+                    running: edgeSnappingIndicator.visible
+                    loops: Animation.Infinite
+                    
+                    NumberAnimation {
+                        target: edgeSnappingIndicator
+                        property: "opacity"
+                        from: 0.8
+                        to: 1.0
+                        duration: 800
+                        easing.type: Easing.InOutQuad
+                    }
+                    
+                    NumberAnimation {
+                        target: edgeSnappingIndicator
+                        property: "opacity"
+                        from: 1.0
+                        to: 0.8
+                        duration: 800
+                        easing.type: Easing.InOutQuad
+                    }
+                }
             }
         }
 
@@ -902,5 +1032,219 @@ PlasmaCore.Dialog {
         }
         
         return standardCheck;
+    }
+    
+    // Function to handle advanced edge snapping
+    function checkAdvancedEdgeSnapping() {
+        if (!config.enableAdvancedEdgeSnapping || !moving) return;
+        
+        try {
+            // Use the edge snapping layouts configuration from config
+            const edgeSnappingConfig = config.edgeSnappingLayouts;
+            
+            if (!edgeSnappingConfig.zones || !edgeSnappingConfig.distances) {
+                log("Invalid edge snapping configuration");
+                return;
+            }
+            
+            // Get screen dimensions
+            const screenWidth = clientArea.width;
+            const screenHeight = clientArea.height;
+            const screenX = clientArea.x;
+            const screenY = clientArea.y;
+            
+            // Get cursor position relative to screen
+            const cursorX = Workspace.cursorPos.x - screenX;
+            const cursorY = Workspace.cursorPos.y - screenY;
+            
+            // Calculate percentages from screen edges
+            const percentFromLeft = (cursorX / screenWidth) * 100;
+            const percentFromRight = 100 - percentFromLeft;
+            const percentFromTop = (cursorY / screenHeight) * 100;
+            const percentFromBottom = 100 - percentFromTop;
+            
+            // Determine which zone the cursor is in
+            let currentZone = null;
+            let currentDistance = null;
+            
+            // Check distances (far, medium, close)
+            const distances = edgeSnappingConfig.distances;
+            
+            // Check if cursor is in far distance (30%-15% from edge)
+            if (percentFromLeft <= distances.far[0] && percentFromLeft > distances.far[1]) {
+                currentDistance = "far";
+                if (percentFromTop <= distances.far[0] && percentFromTop > distances.far[1]) {
+                    currentZone = "left-top-edge";
+                } else if (percentFromBottom <= distances.far[0] && percentFromBottom > distances.far[1]) {
+                    currentZone = "left-bottom-edge";
+                } else {
+                    currentZone = "left-edge";
+                }
+            } else if (percentFromRight <= distances.far[0] && percentFromRight > distances.far[1]) {
+                currentDistance = "far";
+                if (percentFromTop <= distances.far[0] && percentFromTop > distances.far[1]) {
+                    currentZone = "right-top-edge";
+                } else if (percentFromBottom <= distances.far[0] && percentFromBottom > distances.far[1]) {
+                    currentZone = "right-bottom-edge";
+                } else {
+                    currentZone = "right-edge";
+                }
+            } else if (percentFromTop <= distances.far[0] && percentFromTop > distances.far[1]) {
+                currentDistance = "far";
+                if (percentFromLeft <= distances.far[0] && percentFromLeft > distances.far[1]) {
+                    currentZone = "top-left";
+                } else if (percentFromRight <= distances.far[0] && percentFromRight > distances.far[1]) {
+                    currentZone = "top-right";
+                } else {
+                    currentZone = "center-top";
+                }
+            } else if (percentFromBottom <= distances.far[0] && percentFromBottom > distances.far[1]) {
+                currentDistance = "far";
+                if (percentFromLeft <= distances.far[0] && percentFromLeft > distances.far[1]) {
+                    currentZone = "bottom-left";
+                } else if (percentFromRight <= distances.far[0] && percentFromRight > distances.far[1]) {
+                    currentZone = "bottom-right";
+                } else {
+                    currentZone = "center-bottom";
+                }
+            }
+            
+            // Check if cursor is in medium distance (15%-5% from edge)
+            if (!currentZone) {
+                if (percentFromLeft <= distances.medium[0] && percentFromLeft > distances.medium[1]) {
+                    currentDistance = "medium";
+                    if (percentFromTop <= distances.medium[0] && percentFromTop > distances.medium[1]) {
+                        currentZone = "left-top-edge";
+                    } else if (percentFromBottom <= distances.medium[0] && percentFromBottom > distances.medium[1]) {
+                        currentZone = "left-bottom-edge";
+                    } else {
+                        currentZone = "left-edge";
+                    }
+                } else if (percentFromRight <= distances.medium[0] && percentFromRight > distances.medium[1]) {
+                    currentDistance = "medium";
+                    if (percentFromTop <= distances.medium[0] && percentFromTop > distances.medium[1]) {
+                        currentZone = "right-top-edge";
+                    } else if (percentFromBottom <= distances.medium[0] && percentFromBottom > distances.medium[1]) {
+                        currentZone = "right-bottom-edge";
+                    } else {
+                        currentZone = "right-edge";
+                    }
+                } else if (percentFromTop <= distances.medium[0] && percentFromTop > distances.medium[1]) {
+                    currentDistance = "medium";
+                    if (percentFromLeft <= distances.medium[0] && percentFromLeft > distances.medium[1]) {
+                        currentZone = "top-left";
+                    } else if (percentFromRight <= distances.medium[0] && percentFromRight > distances.medium[1]) {
+                        currentZone = "top-right";
+                    } else {
+                        currentZone = "center-top";
+                    }
+                } else if (percentFromBottom <= distances.medium[0] && percentFromBottom > distances.medium[1]) {
+                    currentDistance = "medium";
+                    if (percentFromLeft <= distances.medium[0] && percentFromLeft > distances.medium[1]) {
+                        currentZone = "bottom-left";
+                    } else if (percentFromRight <= distances.medium[0] && percentFromRight > distances.medium[1]) {
+                        currentZone = "bottom-right";
+                    } else {
+                        currentZone = "center-bottom";
+                    }
+                }
+            }
+            
+            // Check if cursor is in close distance (5%-0% from edge)
+            if (!currentZone) {
+                if (percentFromLeft <= distances.close[0] && percentFromLeft >= distances.close[1]) {
+                    currentDistance = "close";
+                    if (percentFromTop <= distances.close[0] && percentFromTop >= distances.close[1]) {
+                        currentZone = "left-top-edge";
+                    } else if (percentFromBottom <= distances.close[0] && percentFromBottom >= distances.close[1]) {
+                        currentZone = "left-bottom-edge";
+                    } else {
+                        currentZone = "left-edge";
+                    }
+                } else if (percentFromRight <= distances.close[0] && percentFromRight >= distances.close[1]) {
+                    currentDistance = "close";
+                    if (percentFromTop <= distances.close[0] && percentFromTop >= distances.close[1]) {
+                        currentZone = "right-top-edge";
+                    } else if (percentFromBottom <= distances.close[0] && percentFromBottom >= distances.close[1]) {
+                        currentZone = "right-bottom-edge";
+                    } else {
+                        currentZone = "right-edge";
+                    }
+                } else if (percentFromTop <= distances.close[0] && percentFromTop >= distances.close[1]) {
+                    currentDistance = "close";
+                    if (percentFromLeft <= distances.close[0] && percentFromLeft >= distances.close[1]) {
+                        currentZone = "top-left";
+                    } else if (percentFromRight <= distances.close[0] && percentFromRight >= distances.close[1]) {
+                        currentZone = "top-right";
+                    } else {
+                        currentZone = "center-top";
+                    }
+                } else if (percentFromBottom <= distances.close[0] && percentFromBottom >= distances.close[1]) {
+                    currentDistance = "close";
+                    if (percentFromLeft <= distances.close[0] && percentFromLeft >= distances.close[1]) {
+                        currentZone = "bottom-left";
+                    } else if (percentFromRight <= distances.close[0] && percentFromRight >= distances.close[1]) {
+                        currentZone = "bottom-right";
+                    } else {
+                        currentZone = "center-bottom";
+                    }
+                }
+            }
+            
+            // Check center zones
+            if (!currentZone) {
+                if (percentFromLeft > distances.close[0] && percentFromRight > distances.close[0] &&
+                    percentFromTop > distances.close[0] && percentFromBottom > distances.close[0]) {
+                    
+                    // Divide the center into 5 zones (center, center-top-left, center-top-right, center-bottom-left, center-bottom-right)
+                    if (percentFromLeft < 50 && percentFromTop < 50) {
+                        currentZone = "center-top-left";
+                    } else if (percentFromRight < 50 && percentFromTop < 50) {
+                        currentZone = "center-top-right";
+                    } else if (percentFromLeft < 50 && percentFromBottom < 50) {
+                        currentZone = "center-bottom-left";
+                    } else if (percentFromRight < 50 && percentFromBottom < 50) {
+                        currentZone = "center-bottom-right";
+                    } else {
+                        // Pure center - check if we're closer to left/right or top/bottom
+                        if (percentFromLeft < percentFromRight) {
+                            currentZone = "center-left";
+                        } else if (percentFromRight < percentFromLeft) {
+                            currentZone = "center-right";
+                        } else if (percentFromTop < percentFromBottom) {
+                            currentZone = "center-top";
+                        } else {
+                            currentZone = "center-bottom";
+                        }
+                    }
+                }
+            }
+            
+            // If we found a zone, check if there's a layout assigned to it
+            if (currentZone && edgeSnappingConfig.zones[currentZone] !== undefined) {
+                const targetLayout = edgeSnappingConfig.zones[currentZone];
+                
+                // Update the current edge snapping zone
+                currentEdgeSnappingZone = currentZone;
+                
+                // Only change layout if it's different from current
+                if (targetLayout !== currentLayout && targetLayout < config.layouts.length) {
+                    log("Advanced edge snapping: Changing to layout " + targetLayout + " from zone " + currentZone + " (" + currentDistance + ")");
+                    setCurrentLayout(targetLayout);
+                    
+                    // Show OSD message
+                    if (config.showOsdMessages) {
+                        osdDbus.exec(config.trackLayoutPerScreen ? 
+                            `${config.layouts[currentLayout].name} (${Workspace.activeScreen.name}) - ${currentZone}` : 
+                            `${config.layouts[currentLayout].name} - ${currentZone}`);
+                    }
+                } else {
+                    // Clear the current edge snapping zone if no zone is detected
+                    currentEdgeSnappingZone = "";
+                }
+            }
+        } catch (e) {
+            log("Error in advanced edge snapping: " + e.message);
+        }
     }
 }
