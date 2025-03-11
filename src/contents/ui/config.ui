@@ -480,7 +480,7 @@
           <item>
            <widget class="QLabel" name="label_edgeSnappingLayoutsExplanation">
             <property name="text">
-             <string>Configure which layouts should be activated when the cursor approaches different screen edges. The configuration uses JSON format with zones like: right-edge, right-top-edge, right-bottom-edge, top-right, etc.</string>
+             <string>Configure which layouts should be activated when the cursor approaches different screen edges at different distances. Each zone can have different layouts for different distances (far, medium, close). For example, "right-edge": {"far": 0, "medium": 1, "close": 2} means layout 0 when far from the right edge, layout 1 at medium distance, and layout 2 when close to the right edge.</string>
             </property>
             <property name="wordWrap">
              <bool>true</bool>
@@ -492,24 +492,24 @@
             <property name="plainText">
              <string>{
     "zones": {
-        "right-edge": 0,
-        "right-top-edge": 1,
-        "right-bottom-edge": 0,
-        "top-right": 1,
-        "bottom-right": 0,
-        "center-right": 0,
-        "center-left": 1,
-        "center-bottom": 0,
-        "center-top": 1,
-        "center-top-left": 1,
-        "center-top-right": 1,
-        "center-bottom-left": 0,
-        "center-bottom-right": 0,
-        "left-edge": 1,
-        "left-top-edge": 1,
-        "left-bottom-edge": 1,
-        "top-left": 1,
-        "bottom-left": 0
+        "right-edge": { "far": 0, "medium": 1, "close": 2 },
+        "right-top-edge": { "far": 0, "medium": 1, "close": 1 },
+        "right-bottom-edge": { "far": 0, "medium": 0, "close": 1 },
+        "top-right": { "far": 1, "medium": 1, "close": 0 },
+        "bottom-right": { "far": 0, "medium": 1, "close": 1 },
+        "center-right": { "far": 0, "medium": 1, "close": 0 },
+        "center-left": { "far": 1, "medium": 0, "close": 1 },
+        "center-bottom": { "far": 0, "medium": 1, "close": 0 },
+        "center-top": { "far": 1, "medium": 0, "close": 1 },
+        "center-top-left": { "far": 1, "medium": 0, "close": 1 },
+        "center-top-right": { "far": 1, "medium": 1, "close": 0 },
+        "center-bottom-left": { "far": 0, "medium": 1, "close": 0 },
+        "center-bottom-right": { "far": 0, "medium": 0, "close": 1 },
+        "left-edge": { "far": 1, "medium": 0, "close": 1 },
+        "left-top-edge": { "far": 1, "medium": 1, "close": 0 },
+        "left-bottom-edge": { "far": 1, "medium": 0, "close": 1 },
+        "top-left": { "far": 1, "medium": 0, "close": 1 },
+        "bottom-left": { "far": 0, "medium": 1, "close": 0 }
     },
     "distances": {
         "far": [30, 15],

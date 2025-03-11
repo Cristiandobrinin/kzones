@@ -127,24 +127,24 @@ PlasmaCore.Dialog {
         try {
             const defaultEdgeSnappingConfig = {
                 zones: {
-                    "right-edge": 0,
-                    "right-top-edge": 1,
-                    "right-bottom-edge": 0,
-                    "top-right": 1,
-                    "bottom-right": 0,
-                    "center-right": 0,
-                    "center-left": 1,
-                    "center-bottom": 0,
-                    "center-top": 1,
-                    "center-top-left": 1,
-                    "center-top-right": 1,
-                    "center-bottom-left": 0,
-                    "center-bottom-right": 0,
-                    "left-edge": 1,
-                    "left-top-edge": 1,
-                    "left-bottom-edge": 1,
-                    "top-left": 1,
-                    "bottom-left": 0
+                    "right-edge": { far: 0, medium: 1, close: 2 },
+                    "right-top-edge": { far: 0, medium: 1, close: 1 },
+                    "right-bottom-edge": { far: 0, medium: 0, close: 1 },
+                    "top-right": { far: 1, medium: 1, close: 0 },
+                    "bottom-right": { far: 0, medium: 1, close: 1 },
+                    "center-right": { far: 0, medium: 1, close: 0 },
+                    "center-left": { far: 1, medium: 0, close: 1 },
+                    "center-bottom": { far: 0, medium: 1, close: 0 },
+                    "center-top": { far: 1, medium: 0, close: 1 },
+                    "center-top-left": { far: 1, medium: 0, close: 1 },
+                    "center-top-right": { far: 1, medium: 1, close: 0 },
+                    "center-bottom-left": { far: 0, medium: 1, close: 0 },
+                    "center-bottom-right": { far: 0, medium: 0, close: 1 },
+                    "left-edge": { far: 1, medium: 0, close: 1 },
+                    "left-top-edge": { far: 1, medium: 1, close: 0 },
+                    "left-bottom-edge": { far: 1, medium: 0, close: 1 },
+                    "top-left": { far: 1, medium: 0, close: 1 },
+                    "bottom-left": { far: 0, medium: 1, close: 0 }
                 },
                 distances: {
                     "far": [30, 15],
@@ -164,24 +164,24 @@ PlasmaCore.Dialog {
             errors = errors.concat(`Could not load edge snapping layouts from configuration, using default.\nError: ${e.message}`);
             config.edgeSnappingLayouts = {
                 zones: {
-                    "right-edge": 0,
-                    "right-top-edge": 1,
-                    "right-bottom-edge": 0,
-                    "top-right": 1,
-                    "bottom-right": 0,
-                    "center-right": 0,
-                    "center-left": 1,
-                    "center-bottom": 0,
-                    "center-top": 1,
-                    "center-top-left": 1,
-                    "center-top-right": 1,
-                    "center-bottom-left": 0,
-                    "center-bottom-right": 0,
-                    "left-edge": 1,
-                    "left-top-edge": 1,
-                    "left-bottom-edge": 1,
-                    "top-left": 1,
-                    "bottom-left": 0
+                    "right-edge": { far: 0, medium: 1, close: 2 },
+                    "right-top-edge": { far: 0, medium: 1, close: 1 },
+                    "right-bottom-edge": { far: 0, medium: 0, close: 1 },
+                    "top-right": { far: 1, medium: 1, close: 0 },
+                    "bottom-right": { far: 0, medium: 1, close: 1 },
+                    "center-right": { far: 0, medium: 1, close: 0 },
+                    "center-left": { far: 1, medium: 0, close: 1 },
+                    "center-bottom": { far: 0, medium: 1, close: 0 },
+                    "center-top": { far: 1, medium: 0, close: 1 },
+                    "center-top-left": { far: 1, medium: 0, close: 1 },
+                    "center-top-right": { far: 1, medium: 1, close: 0 },
+                    "center-bottom-left": { far: 0, medium: 1, close: 0 },
+                    "center-bottom-right": { far: 0, medium: 0, close: 1 },
+                    "left-edge": { far: 1, medium: 0, close: 1 },
+                    "left-top-edge": { far: 1, medium: 1, close: 0 },
+                    "left-bottom-edge": { far: 1, medium: 0, close: 1 },
+                    "top-left": { far: 1, medium: 0, close: 1 },
+                    "bottom-left": { far: 0, medium: 1, close: 0 }
                 },
                 distances: {
                     "far": [30, 15],
@@ -904,8 +904,8 @@ PlasmaCore.Dialog {
                 id: edgeSnappingIndicator
                 
                 visible: config.enableAdvancedEdgeSnapping && currentEdgeSnappingZone !== ""
-                width: 120
-                height: 30
+                width: 180
+                height: 50
                 radius: 5
                 color: Qt.rgba(0.2, 0.6, 1.0, 0.8)
                 border.color: Qt.rgba(0.3, 0.7, 1.0, 1.0)
@@ -916,11 +916,24 @@ PlasmaCore.Dialog {
                 anchors.top: parent.top
                 anchors.margins: 10
                 
-                Text {
+                Column {
                     anchors.centerIn: parent
-                    text: "Zone: " + currentEdgeSnappingZone
-                    color: "white"
-                    font.pixelSize: 12
+                    spacing: 2
+                    
+                    Text {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: "Layout: " + (currentLayout < config.layouts.length ? config.layouts[currentLayout].name : "Unknown")
+                        color: "white"
+                        font.pixelSize: 12
+                        font.bold: true
+                    }
+                    
+                    Text {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: currentEdgeSnappingZone
+                        color: "white"
+                        font.pixelSize: 11
+                    }
                 }
                 
                 // Add a subtle pulsing animation
@@ -1199,35 +1212,46 @@ PlasmaCore.Dialog {
                     // Divide the center into 5 zones (center, center-top-left, center-top-right, center-bottom-left, center-bottom-right)
                     if (percentFromLeft < 50 && percentFromTop < 50) {
                         currentZone = "center-top-left";
+                        currentDistance = "close"; // Default to close for center zones
                     } else if (percentFromRight < 50 && percentFromTop < 50) {
                         currentZone = "center-top-right";
+                        currentDistance = "close";
                     } else if (percentFromLeft < 50 && percentFromBottom < 50) {
                         currentZone = "center-bottom-left";
+                        currentDistance = "close";
                     } else if (percentFromRight < 50 && percentFromBottom < 50) {
                         currentZone = "center-bottom-right";
+                        currentDistance = "close";
                     } else {
                         // Pure center - check if we're closer to left/right or top/bottom
                         if (percentFromLeft < percentFromRight) {
                             currentZone = "center-left";
+                            currentDistance = "close";
                         } else if (percentFromRight < percentFromLeft) {
                             currentZone = "center-right";
+                            currentDistance = "close";
                         } else if (percentFromTop < percentFromBottom) {
                             currentZone = "center-top";
+                            currentDistance = "close";
                         } else {
                             currentZone = "center-bottom";
+                            currentDistance = "close";
                         }
                     }
                 }
             }
             
-            // If we found a zone, check if there's a layout assigned to it
-            if (currentZone && edgeSnappingConfig.zones[currentZone] !== undefined) {
-                const targetLayout = edgeSnappingConfig.zones[currentZone];
+            // If we found a zone and distance, check if there's a layout assigned to it
+            if (currentZone && currentDistance && 
+                edgeSnappingConfig.zones[currentZone] && 
+                edgeSnappingConfig.zones[currentZone][currentDistance] !== undefined) {
                 
-                // Update the current edge snapping zone
-                currentEdgeSnappingZone = currentZone;
+                const targetLayout = edgeSnappingConfig.zones[currentZone][currentDistance];
                 
-                // Only change layout if it's different from current
+                // Update the current edge snapping zone with distance
+                currentEdgeSnappingZone = `${currentZone} (${currentDistance})`;
+                
+                // Only change layout if it's different from current and valid
                 if (targetLayout !== currentLayout && targetLayout < config.layouts.length) {
                     log("Advanced edge snapping: Changing to layout " + targetLayout + " from zone " + currentZone + " (" + currentDistance + ")");
                     setCurrentLayout(targetLayout);
@@ -1235,13 +1259,13 @@ PlasmaCore.Dialog {
                     // Show OSD message
                     if (config.showOsdMessages) {
                         osdDbus.exec(config.trackLayoutPerScreen ? 
-                            `${config.layouts[currentLayout].name} (${Workspace.activeScreen.name}) - ${currentZone}` : 
-                            `${config.layouts[currentLayout].name} - ${currentZone}`);
+                            `${config.layouts[currentLayout].name} (${Workspace.activeScreen.name}) - ${currentZone} (${currentDistance})` : 
+                            `${config.layouts[currentLayout].name} - ${currentZone} (${currentDistance})`);
                     }
-                } else {
-                    // Clear the current edge snapping zone if no zone is detected
-                    currentEdgeSnappingZone = "";
                 }
+            } else {
+                // Clear the current edge snapping zone if no valid zone/distance is detected
+                currentEdgeSnappingZone = "";
             }
         } catch (e) {
             log("Error in advanced edge snapping: " + e.message);
