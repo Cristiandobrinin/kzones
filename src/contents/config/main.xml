@@ -140,7 +140,12 @@
         "top-right": { "far": 1, "medium": 1, "close": 0 },
         "bottom-right": { "far": 0, "medium": 1, "close": 1 },
         "center-right": { "far": 0, "medium": 1, "close": 0 },
+        "center-right-outer": { "close": 0 },
+        "center-right-inner": { "close": 1 },
         "center-left": { "far": 1, "medium": 0, "close": 1 },
+        "center-left-outer": { "close": 1 },
+        "center-left-inner": { "close": 0 },
+        "center": { "close": 0 },
         "center-bottom": { "far": 0, "medium": 1, "close": 0 },
         "center-top": { "far": 1, "medium": 0, "close": 1 },
         "center-top-left": { "far": 1, "medium": 0, "close": 1 },
@@ -154,8 +159,8 @@
         "bottom-left": { "far": 0, "medium": 1, "close": 0 }
     },
     "distances": {
-        "far": [30, 15],
-        "medium": [15, 5],
+        "far": [15, 10],
+        "medium": [10, 5],
         "close": [5, 0]
     }
 }
