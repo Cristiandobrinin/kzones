@@ -134,11 +134,11 @@
             <default>
                 {
     "zones": {
-        "right-edge": { "far": 0, "medium": 1, "close": 2 },
-        "right-top-edge": { "far": 0, "medium": 1, "close": 1 },
-        "right-bottom-edge": { "far": 0, "medium": 0, "close": 1 },
-        "top-right": { "far": 1, "medium": 1, "close": 0 },
-        "bottom-right": { "far": 0, "medium": 1, "close": 1 },
+        "zone-right-edge": { "far": 0, "medium": 1, "close": 2 },
+        "zone-right-top-edge": { "far": 0, "medium": 1, "close": 1 },
+        "zone-right-bottom-edge": { "far": 0, "medium": 0, "close": 1 },
+        "zone-right-top": { "far": 1, "medium": 1, "close": 0 },
+        "zone-right-bottom": { "far": 0, "medium": 1, "close": 1 },
         "zone-right-center-outer": { "close": 0 },
         "zone-right-center-inner": { "close": 1 },
         "zone-left-center-outer": { "close": 1 },
@@ -154,11 +154,11 @@
         "zone-left-bottom-inner": { "close": 1 },
         "zone-right-bottom-outer": { "close": 1 },
         "zone-right-bottom-inner": { "close": 0 },
-        "left-edge": { "far": 1, "medium": 0, "close": 1 },
-        "left-top-edge": { "far": 1, "medium": 1, "close": 0 },
-        "left-bottom-edge": { "far": 1, "medium": 0, "close": 1 },
-        "top-left": { "far": 1, "medium": 0, "close": 1 },
-        "bottom-left": { "far": 0, "medium": 1, "close": 0 }
+        "zone-left-edge": { "far": 1, "medium": 0, "close": 1 },
+        "zone-left-top-edge": { "far": 1, "medium": 1, "close": 0 },
+        "zone-left-bottom-edge": { "far": 1, "medium": 0, "close": 1 },
+        "zone-left-top": { "far": 1, "medium": 0, "close": 1 },
+        "zone-left-bottom": { "far": 0, "medium": 1, "close": 0 }
     },
     "distances": {
         "far": [15, 10],
