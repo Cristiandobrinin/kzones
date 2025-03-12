@@ -63,7 +63,16 @@ Item {
             Repeater {
                 id: repeater
 
-                model: config.layouts
+                // Filter out layouts with internal=true (like the fullscreen layout)
+                model: {
+                    let visibleLayouts = [];
+                    for (let i = 0; i < config.layouts.length; i++) {
+                        if (!config.layouts[i].internal) {
+                            visibleLayouts.push(config.layouts[i]);
+                        }
+                    }
+                    return visibleLayouts;
+                }
 
                 Components.Indicator {
                     zones: modelData.zones

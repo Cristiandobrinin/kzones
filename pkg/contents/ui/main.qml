@@ -46,7 +46,7 @@ PlasmaCore.Dialog {
 
     function loadConfig() {
 
-        const defaultLayouts = '[{"name":"Priority Grid","padding":0,"zones":[{"x":0,"y":0,"height":100,"width":25},{"x":25,"y":0,"height":100,"width":50},{"x":75,"y":0,"height":100,"width":25}]},{"name":"Quadrant Grid","zones":[{"x":0,"y":0,"height":50,"width":50},{"x":0,"y":50,"height":50,"width":50},{"x":50,"y":50,"height":50,"width":50},{"x":50,"y":0,"height":50,"width":50}]}]'
+        const defaultLayouts = '[{"name":"Priority Grid","padding":5,"zones":[{"x":0,"y":0,"height":100,"width":25},{"x":25,"y":0,"height":100,"width":50},{"x":75,"y":0,"height":100,"width":25}]},{"name":"Tri-Column","padding":5,"zones":[{"x":0,"y":0,"height":100,"width":33.33},{"x":33.33,"y":0,"height":100,"width":33.33},{"x":66.66,"y":0,"height":100,"width":33.33}]},{"name":"Quadrant Grid","padding":5,"zones":[{"x":0,"y":0,"height":50,"width":50},{"x":0,"y":50,"height":50,"width":50},{"x":50,"y":50,"height":50,"width":50},{"x":50,"y":0,"height":50,"width":50}]},{"name":"Six Equal Squares","padding":5,"zones":[{"x":0,"y":0,"height":50,"width":33.33},{"x":33.33,"y":0,"height":50,"width":33.33},{"x":66.66,"y":0,"height":50,"width":33.33},{"x":0,"y":50,"height":50,"width":33.33},{"x":33.33,"y":50,"height":50,"width":33.33},{"x":66.66,"y":50,"height":50,"width":33.33}]},{"name":"Four Vertical Strips","padding":5,"zones":[{"x":0,"y":0,"height":100,"width":25},{"x":25,"y":0,"height":100,"width":25},{"x":50,"y":0,"height":100,"width":25},{"x":75,"y":0,"height":100,"width":25}]},{"name":"Dual Asymmetrical Left","padding":5,"zones":[{"x":0,"y":0,"height":100,"width":66.66},{"x":66.66,"y":0,"height":100,"width":33.33}]},{"name":"Dual Asymmetrical Right","padding":5,"zones":[{"x":0,"y":0,"height":100,"width":33.33},{"x":33.33,"y":0,"height":100,"width":66.66}]},{"name":"Tri-Column with Quadrants at the Sides","padding":5,"zones":[{"x":0,"y":0,"height":50,"width":25},{"x":0,"y":50,"height":50,"width":25},{"x":25,"y":0,"height":100,"width":50},{"x":75,"y":0,"height":50,"width":25},{"x":75,"y":50,"height":50,"width":25}]}]'
        
         let layouts;
 
@@ -1179,15 +1179,39 @@ PlasmaCore.Dialog {
                     // Non-edge zones
                     else if (zoneName.includes("left-top") || zoneName.includes("left-bottom") || zoneName.includes("left-center")) {
                         if (zoneName.includes("outer")) {
-                            return 0.1;
+                            if (zoneName.includes("left-center")) {
+                                return 0.25; // Changed from 0.1 to 0.25 for left-center-outer
+                            } else if (zoneName.includes("left-top") || zoneName.includes("left-bottom")) {
+                                return 0.25; // Changed from 0.1 to 0.25 for left-top/bottom-outer
+                            } else {
+                                return 0.1; // Keep original value for other left-outer zones
+                            }
                         } else {
-                            return 0.25;
+                            if (zoneName.includes("left-center")) {
+                                return 0.333; // Changed from 0.25 to 0.333 for left-center-inner
+                            } else if (zoneName.includes("left-top") || zoneName.includes("left-bottom")) {
+                                return 0.333; // Changed from 0.25 to 0.333 for left-top/bottom-inner
+                            } else {
+                                return 0.25; // Keep original value for other left-inner zones
+                            }
                         }
                     } else if (zoneName.includes("right-top") || zoneName.includes("right-bottom") || zoneName.includes("right-center")) {
                         if (zoneName.includes("outer")) {
-                            return 0.75;
+                            if (zoneName.includes("right-center")) {
+                                return 0.75; // Right-center-outer starts at 75%
+                            } else if (zoneName.includes("right-top") || zoneName.includes("right-bottom")) {
+                                return 0.75; // Right-top/bottom-outer starts at 75%
+                            } else {
+                                return 0.75; // Default for other right-outer zones
+                            }
                         } else {
-                            return 0.65;
+                            if (zoneName.includes("right-center")) {
+                                return 0.667; // Right-center-inner starts at 66.7% (mirroring left-center-inner at 33.3%)
+                            } else if (zoneName.includes("right-top") || zoneName.includes("right-bottom")) {
+                                return 0.667; // Right-top/bottom-inner starts at 66.7%
+                            } else {
+                                return 0.65; // Default for other right-inner zones
+                            }
                         }
                     } else if (zoneName.includes("center-top") || zoneName.includes("center-bottom") || zoneName === "zone-center") {
                         return 0.35;
@@ -1233,7 +1257,25 @@ PlasmaCore.Dialog {
                     // Non-edge zones
                     else if (zoneName.includes("left") || zoneName.includes("right")) {
                         if (zoneName.includes("outer") || zoneName.includes("inner")) {
-                            return 0.15;
+                            if (zoneName === "zone-left-center-outer") {
+                                return 0.083; // Width from 25% to 33.3%
+                            } else if (zoneName === "zone-left-center-inner") {
+                                return 0.167; // Width from 33.3% to 50%
+                            } else if (zoneName === "zone-left-top-outer" || zoneName === "zone-left-bottom-outer") {
+                                return 0.083; // Width from 25% to 33.3%
+                            } else if (zoneName === "zone-left-top-inner" || zoneName === "zone-left-bottom-inner") {
+                                return 0.167; // Width from 33.3% to 50%
+                            } else if (zoneName === "zone-right-center-outer") {
+                                return 0.083; // Width from 75% to 66.7%
+                            } else if (zoneName === "zone-right-center-inner") {
+                                return 0.167; // Width from 66.7% to 50%
+                            } else if (zoneName === "zone-right-top-outer" || zoneName === "zone-right-bottom-outer") {
+                                return 0.083; // Width from 75% to 66.7%
+                            } else if (zoneName === "zone-right-top-inner" || zoneName === "zone-right-bottom-inner") {
+                                return 0.167; // Width from 66.7% to 50%
+                            } else {
+                                return 0.15; // Default width for other outer/inner zones
+                            }
                         } else {
                             return 0.35;
                         }
@@ -1872,6 +1914,7 @@ PlasmaCore.Dialog {
                 
                 // Horizontal thresholds
                 const leftEdge = 25;
+                const leftInnerEdge = 33.3; // New threshold for left-center-inner
                 const rightEdge = 75;
                 const horizontalCenter = 50;
                 const farDistance = distances.far[0]; // Use only the far distance for calculations
@@ -1884,6 +1927,7 @@ PlasmaCore.Dialog {
                 
                 console.log("Center zone thresholds: horizontal=[" + 
                     "leftEdge=" + leftEdge + ", " +
+                    "leftInnerEdge=" + leftInnerEdge + ", " +
                     "rightEdge=" + rightEdge + ", " +
                     "center=" + horizontalCenter + ", " +
                     "farDistance=" + farDistance + "], " +
@@ -1926,47 +1970,47 @@ PlasmaCore.Dialog {
                     }
                     
                     // 4. Left-top-inner zone (between outer zone and center)
-                    else if (percentFromLeft >= leftEdge && percentFromLeft < horizontalCenter - farDistance &&
+                    else if (percentFromLeft >= leftEdge && percentFromLeft < leftInnerEdge &&
                              percentFromTop > distances.close[0] && percentFromTop < topThird) {
                         currentZone = "zone-left-top-inner";
                         currentDistance = "close";
                         console.log("Detected zone-left-top-inner: horizontal=[" + leftEdge + 
-                                   "," + (horizontalCenter - farDistance) + "], vertical=[" + distances.close[0] + "," + topThird + "]");
+                                   "," + leftInnerEdge + "], vertical=[" + distances.close[0] + "," + topThird + "]");
                     }
                     
                     // 5. Left-center-outer zone (at the outer left edge)
-                    else if (percentFromLeft >= leftEdge - farDistance && percentFromLeft < leftEdge &&
+                    else if (percentFromLeft >= leftEdge && percentFromLeft < leftInnerEdge &&
                              percentFromTop >= topThird && percentFromTop <= bottomThird) {
                         currentZone = "zone-left-center-outer";
                         currentDistance = "close";
-                        console.log("Detected zone-left-center-outer: horizontal=[" + (leftEdge - farDistance) + 
-                                   "," + leftEdge + "], vertical=[" + topThird + "," + bottomThird + "]");
+                        console.log("Detected zone-left-center-outer: horizontal=[" + leftEdge + 
+                                   "," + leftInnerEdge + "], vertical=[" + topThird + "," + bottomThird + "]");
                     }
                     
                     // 6. Left-center-inner zone (between outer zone and center)
-                    else if (percentFromLeft >= leftEdge && percentFromLeft < horizontalCenter - farDistance &&
+                    else if (percentFromLeft >= leftInnerEdge && percentFromLeft < horizontalCenter - farDistance &&
                              percentFromTop >= topThird && percentFromTop <= bottomThird) {
                         currentZone = "zone-left-center-inner";
                         currentDistance = "close";
-                        console.log("Detected zone-left-center-inner: horizontal=[" + leftEdge + 
+                        console.log("Detected zone-left-center-inner: horizontal=[" + leftInnerEdge + 
                                    "," + (horizontalCenter - farDistance) + "], vertical=[" + topThird + "," + bottomThird + "]");
                     }
                     
                     // 7. Left-bottom-outer zone (at the outer left edge)
-                    else if (percentFromLeft >= leftEdge - farDistance && percentFromLeft < leftEdge &&
+                    else if (percentFromLeft >= leftEdge && percentFromLeft < leftInnerEdge &&
                              percentFromTop > bottomThird && percentFromTop <= bottomEdge - distances.close[0]) {
                         currentZone = "zone-left-bottom-outer";
                         currentDistance = "close";
-                        console.log("Detected zone-left-bottom-outer: horizontal=[" + (leftEdge - farDistance) + 
-                                   "," + leftEdge + "], vertical=[" + bottomThird + "," + (bottomEdge - distances.close[0]) + "]");
+                        console.log("Detected zone-left-bottom-outer: horizontal=[" + leftEdge + 
+                                   "," + leftInnerEdge + "], vertical=[" + bottomThird + "," + (bottomEdge - distances.close[0]) + "]");
                     }
                     
                     // 8. Left-bottom-inner zone (between outer zone and center)
-                    else if (percentFromLeft >= leftEdge && percentFromLeft < horizontalCenter - farDistance &&
+                    else if (percentFromLeft >= leftInnerEdge && percentFromLeft < horizontalCenter - farDistance &&
                              percentFromTop > bottomThird && percentFromTop <= bottomEdge - distances.close[0]) {
                         currentZone = "zone-left-bottom-inner";
                         currentDistance = "close";
-                        console.log("Detected zone-left-bottom-inner: horizontal=[" + leftEdge + 
+                        console.log("Detected zone-left-bottom-inner: horizontal=[" + leftInnerEdge + 
                                    "," + (horizontalCenter - farDistance) + "], vertical=[" + bottomThird + "," + (bottomEdge - distances.close[0]) + "]");
                     }
                     
@@ -2086,6 +2130,9 @@ PlasmaCore.Dialog {
                             // Pure center - check if we're closer to left/right or top/bottom
                             if (percentFromLeft < percentFromRight && percentFromLeft < 35) {
                                 if (percentFromLeft < 25) {
+                                    currentZone = "zone-left-center-outer";
+                                    console.log("Fallback: Detected zone-left-center-outer");
+                                } else if (percentFromLeft >= 25 && percentFromLeft < 33.3) {
                                     currentZone = "zone-left-center-outer";
                                     console.log("Fallback: Detected zone-left-center-outer");
                                 } else {

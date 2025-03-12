@@ -74,7 +74,7 @@
                 [
     {
         &quot;name&quot;: &quot;Priority Grid&quot;,
-        &quot;padding&quot;: 0,
+        &quot;padding&quot;: 5,
         &quot;zones&quot;: [
             {
                 &quot;x&quot;: 0,
@@ -97,36 +97,50 @@
         ]
     },
     {
-        &quot;name&quot;: &quot;Quadrant Grid&quot;,
+        &quot;name&quot;: &quot;Priority Grid Half&quot;,
+        &quot;padding&quot;: 5,
         &quot;zones&quot;: [
             {
                 &quot;x&quot;: 0,
                 &quot;y&quot;: 0,
                 &quot;height&quot;: 50,
-                &quot;width&quot;: 50
+                &quot;width&quot;: 25
             },
             {
                 &quot;x&quot;: 0,
                 &quot;y&quot;: 50,
                 &quot;height&quot;: 50,
+                &quot;width&quot;: 25
+            },
+            {
+                &quot;x&quot;: 25,
+                &quot;y&quot;: 0,
+                &quot;height&quot;: 50,
                 &quot;width&quot;: 50
             },
             {
-                &quot;x&quot;: 50,
+                &quot;x&quot;: 25,
                 &quot;y&quot;: 50,
                 &quot;height&quot;: 50,
                 &quot;width&quot;: 50
             },
             {
-                &quot;x&quot;: 50,
+                &quot;x&quot;: 75,
                 &quot;y&quot;: 0,
                 &quot;height&quot;: 50,
-                &quot;width&quot;: 50
+                &quot;width&quot;: 25
+            },
+            {
+                &quot;x&quot;: 75,
+                &quot;y&quot;: 50,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 25
             }
         ]
     },
     {
         &quot;name&quot;: &quot;Tri-Column&quot;,
+        &quot;padding&quot;: 5,
         &quot;zones&quot;: [
             {
                 &quot;x&quot;: 0,
@@ -149,100 +163,50 @@
         ]
     },
     {
-        &quot;name&quot;: &quot;Dual Asymmetrical Left&quot;,
+        &quot;name&quot;: &quot;Tri-Column Half&quot;,
+        &quot;padding&quot;: 5,
         &quot;zones&quot;: [
             {
                 &quot;x&quot;: 0,
                 &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 70
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 33.33
             },
             {
-                &quot;x&quot;: 70,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 30
-            }
-        ]
-    },
-    {
-        &quot;name&quot;: &quot;Dual Asymmetrical Right&quot;,
-        &quot;zones&quot;: [
-            {
                 &quot;x&quot;: 0,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 30
-            },
-            {
-                &quot;x&quot;: 30,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 70
-            }
-        ]
-    },
-    {
-        &quot;name&quot;: &quot;Six Equal Squares&quot;,
-        &quot;zones&quot;: [
-            {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 33.33,
+                &quot;y&quot;: 50,
+                &quot;height&quot;: 50,
                 &quot;width&quot;: 33.33
             },
             {
                 &quot;x&quot;: 33.33,
                 &quot;y&quot;: 0,
-                &quot;height&quot;: 33.33,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 33.34
+            },
+            {
+                &quot;x&quot;: 33.33,
+                &quot;y&quot;: 50,
+                &quot;height&quot;: 50,
                 &quot;width&quot;: 33.34
             },
             {
                 &quot;x&quot;: 66.67,
                 &quot;y&quot;: 0,
-                &quot;height&quot;: 33.33,
+                &quot;height&quot;: 50,
                 &quot;width&quot;: 33.33
-            },
-            {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 33.33,
-                &quot;height&quot;: 33.34,
-                &quot;width&quot;: 33.33
-            },
-            {
-                &quot;x&quot;: 33.33,
-                &quot;y&quot;: 33.33,
-                &quot;height&quot;: 33.34,
-                &quot;width&quot;: 33.34
             },
             {
                 &quot;x&quot;: 66.67,
-                &quot;y&quot;: 33.33,
-                &quot;height&quot;: 33.34,
-                &quot;width&quot;: 33.33
-            },
-            {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 66.67,
-                &quot;height&quot;: 33.33,
-                &quot;width&quot;: 33.33
-            },
-            {
-                &quot;x&quot;: 33.33,
-                &quot;y&quot;: 66.67,
-                &quot;height&quot;: 33.33,
-                &quot;width&quot;: 33.34
-            },
-            {
-                &quot;x&quot;: 66.67,
-                &quot;y&quot;: 66.67,
-                &quot;height&quot;: 33.33,
+                &quot;y&quot;: 50,
+                &quot;height&quot;: 50,
                 &quot;width&quot;: 33.33
             }
         ]
     },
     {
         &quot;name&quot;: &quot;Four Vertical Strips&quot;,
+        &quot;padding&quot;: 5,
         &quot;zones&quot;: [
             {
                 &quot;x&quot;: 0,
@@ -271,7 +235,8 @@
         ]
     },
     {
-        &quot;name&quot;: &quot;Tri-Column with Quadrants at the Sides&quot;,
+        &quot;name&quot;: &quot;Four Vertical Strips Half&quot;,
+        &quot;padding&quot;: 5,
         &quot;zones&quot;: [
             {
                 &quot;x&quot;: 0,
@@ -288,8 +253,26 @@
             {
                 &quot;x&quot;: 25,
                 &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 50
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 25
+            },
+            {
+                &quot;x&quot;: 25,
+                &quot;y&quot;: 50,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 25
+            },
+            {
+                &quot;x&quot;: 50,
+                &quot;y&quot;: 0,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 25
+            },
+            {
+                &quot;x&quot;: 50,
+                &quot;y&quot;: 50,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 25
             },
             {
                 &quot;x&quot;: 75,
@@ -302,6 +285,150 @@
                 &quot;y&quot;: 50,
                 &quot;height&quot;: 50,
                 &quot;width&quot;: 25
+            }
+        ]
+    },
+    {
+        &quot;name&quot;: &quot;Dual&quot;,
+        &quot;padding&quot;: 5,
+        &quot;zones&quot;: [
+            {
+                &quot;x&quot;: 0,
+                &quot;y&quot;: 0,
+                &quot;height&quot;: 100,
+                &quot;width&quot;: 50
+            },
+            {
+                &quot;x&quot;: 50,
+                &quot;y&quot;: 0,
+                &quot;height&quot;: 100,
+                &quot;width&quot;: 50
+            }
+        ]
+    },
+    {
+        &quot;name&quot;: &quot;Quadrant Grid&quot;,
+        &quot;padding&quot;: 5,
+        &quot;zones&quot;: [
+            {
+                &quot;x&quot;: 0,
+                &quot;y&quot;: 0,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 50
+            },
+            {
+                &quot;x&quot;: 0,
+                &quot;y&quot;: 50,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 50
+            },
+            {
+                &quot;x&quot;: 50,
+                &quot;y&quot;: 50,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 50
+            },
+            {
+                &quot;x&quot;: 50,
+                &quot;y&quot;: 0,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 50
+            }
+        ]
+    },
+    {
+        &quot;name&quot;: &quot;Dual Asymmetrical Left&quot;,
+        &quot;padding&quot;: 5,
+        &quot;zones&quot;: [
+            {
+                &quot;x&quot;: 0,
+                &quot;y&quot;: 0,
+                &quot;height&quot;: 100,
+                &quot;width&quot;: 66.7
+            },
+            {
+                &quot;x&quot;: 66.7,
+                &quot;y&quot;: 0,
+                &quot;height&quot;: 100,
+                &quot;width&quot;: 33.3
+            }
+        ]
+    },
+    {
+        &quot;name&quot;: &quot;Dual Asymmetrical Right&quot;,
+        &quot;padding&quot;: 5,
+        &quot;zones&quot;: [
+            {
+                &quot;x&quot;: 0,
+                &quot;y&quot;: 0,
+                &quot;height&quot;: 100,
+                &quot;width&quot;: 33.3
+            },
+            {
+                &quot;x&quot;: 33.3,
+                &quot;y&quot;: 0,
+                &quot;height&quot;: 100,
+                &quot;width&quot;: 66.7
+            }
+        ]
+    },
+    {
+        &quot;name&quot;: &quot;Dual Asymmetrical Left Half&quot;,
+        &quot;padding&quot;: 5,
+        &quot;zones&quot;: [
+            {
+                &quot;x&quot;: 0,
+                &quot;y&quot;: 0,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 66.7
+            },
+            {
+                &quot;x&quot;: 0,
+                &quot;y&quot;: 50,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 66.7
+            },
+            {
+                &quot;x&quot;: 66.6,
+                &quot;y&quot;: 0,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 33.3
+            },
+            {
+                &quot;x&quot;: 66.6,
+                &quot;y&quot;: 50,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 33.3
+            }
+        ]
+    },
+    {
+        &quot;name&quot;: &quot;Dual Asymmetrical Right Half&quot;,
+        &quot;padding&quot;: 5,
+        &quot;zones&quot;: [
+            {
+                &quot;x&quot;: 0,
+                &quot;y&quot;: 0,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 33.3
+            },
+            {
+                &quot;x&quot;: 0,
+                &quot;y&quot;: 50,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 33.3
+            },
+            {
+                &quot;x&quot;: 30,
+                &quot;y&quot;: 0,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 66.7
+            },
+            {
+                &quot;x&quot;: 30,
+                &quot;y&quot;: 50,
+                &quot;height&quot;: 50,
+                &quot;width&quot;: 66.7
             }
         ]
     }
