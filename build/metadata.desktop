@@ -1,0 +1,16 @@
+[Desktop Entry]
+Name=KZones
+Comment=Window manager with customizable zones
+Icon=preferences-system-windows
+
+X-Plasma-API=declarativescript
+X-Plasma-MainScript=ui/main.qml
+
+X-KDE-PluginInfo-Author=Gerrit de Vriese
+X-KDE-PluginInfo-Email=gerritdevriese@gmail.com
+X-KDE-PluginInfo-Name=kzones
+X-KDE-PluginInfo-Version=1.2.5
+X-KDE-PluginInfo-License=GPL
+X-KDE-ServiceTypes=KWin/Script
+
+Type=Service 
