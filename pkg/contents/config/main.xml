@@ -469,11 +469,6 @@
         "zone-left-bottom-inner": { "close": "Six Equal Squares" },
         "zone-right-bottom-outer": { "close": "Quadrant Grid" },
         "zone-right-bottom-inner": { "close": "Six Equal Squares" }
-    },
-    "distances": {
-        "far": [15, 10],
-        "medium": [10, 5],
-        "close": [5, 0]
     }
 }
             </default>

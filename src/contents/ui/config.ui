@@ -787,7 +787,7 @@
           <item>
            <widget class="QLabel" name="label_edgeSnappingLayoutsExplanation">
             <property name="text">
-             <string>Configure which layouts should be activated when the cursor approaches different screen edges at different distances. Each zone can have different layouts for different distances (far, medium, close). Use layout names instead of indices to make configurations more readable.</string>
+             <string>Configure which layouts should be activated when the cursor approaches different screen edges at different distances. Each zone can have different layouts for different distances (far, medium, close). Use layout names instead of indices to make configurations more readable. Note: The distance thresholds (far=[15,10], medium=[10,5], close=[5,0]) are hardcoded and not configurable.</string>
             </property>
             <property name="wordWrap">
              <bool>true</bool>

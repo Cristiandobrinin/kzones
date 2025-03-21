@@ -172,7 +172,14 @@ PlasmaCore.Dialog {
             const edgeSnappingLayoutsJson = KWin.readConfig("edgeSnappingLayoutsJson", JSON.stringify(defaultEdgeSnappingConfig));
             config.edgeSnappingLayouts = JSON.parse(edgeSnappingLayoutsJson);
             
-            if (!config.edgeSnappingLayouts.zones || !config.edgeSnappingLayouts.distances) {
+            // Always use hardcoded distances regardless of what's in the configuration
+            config.edgeSnappingLayouts.distances = {
+                "far": [15, 10],
+                "medium": [10, 5],
+                "close": [5, 0]
+            };
+            
+            if (!config.edgeSnappingLayouts.zones) {
                 console.log("Invalid edge snapping configuration, using default");
                 config.edgeSnappingLayouts = defaultEdgeSnappingConfig;
             }
@@ -286,6 +293,13 @@ PlasmaCore.Dialog {
                     "medium": [10, 5],
                     "close": [5, 0]
                 }
+            };
+            
+            // Always use hardcoded distances
+            config.edgeSnappingLayouts.distances = {
+                "far": [15, 10],
+                "medium": [10, 5],
+                "close": [5, 0]
             };
         }
 
@@ -1696,11 +1710,15 @@ PlasmaCore.Dialog {
             let currentZone = null;
             let currentDistance = null;
             
-            // Get distances from configuration - these may have been customized by the user
-            const distances = edgeSnappingConfig.distances;
+            // Hardcoded distances - these are no longer configurable by the user
+            const distances = {
+                "far": [15, 10],
+                "medium": [10, 5],
+                "close": [5, 0]
+            };
             
             // Log the distances for debugging
-            console.log("Using distances: far=[" + distances.far[0] + "," + distances.far[1] + 
+            console.log("Using hardcoded distances: far=[" + distances.far[0] + "," + distances.far[1] + 
                 "], medium=[" + distances.medium[0] + "," + distances.medium[1] + 
                 "], close=[" + distances.close[0] + "," + distances.close[1] + "]");
             
