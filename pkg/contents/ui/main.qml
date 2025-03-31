@@ -1016,7 +1016,8 @@ PlasmaCore.Dialog {
                 }
 
                 // Advanced edge snapping - check if we should change layouts based on cursor position
-                if (config.enableAdvancedEdgeSnapping && !zoneSelector.fullscreenRequested && !isVeryCloseToTop) {
+                if (config.enableAdvancedEdgeSnapping && !zoneSelector.fullscreenRequested && !isVeryCloseToTop 
+                    && !zoneSelector.expanded && !zoneSelector.near) {
                     checkAdvancedEdgeSnapping();
                     
                     // If no zone is highlighted yet, find the closest zone to highlight
@@ -1059,32 +1060,31 @@ PlasmaCore.Dialog {
                 
                 // Always ensure a zone is highlighted if we're in advanced edge snapping mode
                 // This ensures zone highlighting even when the mouse is not moving
-                if (config.enableAdvancedEdgeSnapping && highlightedZone === -1 && currentEdgeSnappingZone !== "") {
+                if (config.enableAdvancedEdgeSnapping && highlightedZone === -1 && currentEdgeSnappingZone !== "" 
+                    && !zoneSelector.expanded && !zoneSelector.near) {
                     // Find the closest zone in the current layout to the cursor position
                     const zones = config.layouts[currentLayout].zones;
-                    if (zones && zones.length > 0) {
-                        let closestZone = 0;
-                        let closestDistance = Infinity;
-                        
-                        for (let i = 0; i < zones.length; i++) {
-                            const zone = zones[i];
-                            const zoneCenter = {
-                                x: (zone.x + zone.width / 2) / 100 * clientArea.width + clientArea.x,
-                                y: (zone.y + zone.height / 2) / 100 * clientArea.height + clientArea.y
-                            };
-                            const distance = Math.sqrt(
-                                Math.pow(Workspace.cursorPos.x - zoneCenter.x, 2) + 
-                                Math.pow(Workspace.cursorPos.y - zoneCenter.y, 2)
-                            );
-                            if (distance < closestDistance) {
-                                closestZone = i;
-                                closestDistance = distance;
-                            }
+                    let closestZone = 0;
+                    let closestDistance = Infinity;
+                    
+                    for (let i = 0; i < zones.length; i++) {
+                        const zone = zones[i];
+                        const zoneCenter = {
+                            x: (zone.x + zone.width / 2) / 100 * clientArea.width + clientArea.x,
+                            y: (zone.y + zone.height / 2) / 100 * clientArea.height + clientArea.y
+                        };
+                        const distance = Math.sqrt(
+                            Math.pow(Workspace.cursorPos.x - zoneCenter.x, 2) + 
+                            Math.pow(Workspace.cursorPos.y - zoneCenter.y, 2)
+                        );
+                        if (distance < closestDistance) {
+                            closestZone = i;
+                            closestDistance = distance;
                         }
-                        
-                        highlightedZone = closestZone;
-                        log("Ensuring zone highlighting: Set to zone " + highlightedZone + " in layout " + currentLayout);
                     }
+                    
+                    highlightedZone = closestZone;
+                    log("Always highlight: Set to zone " + highlightedZone + " in layout " + currentLayout);
                 }
             }
         }
@@ -1193,39 +1193,19 @@ PlasmaCore.Dialog {
                     // Non-edge zones
                     else if (zoneName.includes("left-top") || zoneName.includes("left-bottom") || zoneName.includes("left-center")) {
                         if (zoneName.includes("outer")) {
-                            if (zoneName.includes("left-center")) {
-                                return 0.25; // Changed from 0.1 to 0.25 for left-center-outer
-                            } else if (zoneName.includes("left-top") || zoneName.includes("left-bottom")) {
-                                return 0.25; // Changed from 0.1 to 0.25 for left-top/bottom-outer
-                            } else {
-                                return 0.1; // Keep original value for other left-outer zones
-                            }
+                            // Left-outer zones are at 25%-33.3% of screen width (mirror of right-outer at 66.7%-75%)
+                            return 0.25;
                         } else {
-                            if (zoneName.includes("left-center")) {
-                                return 0.333; // Changed from 0.25 to 0.333 for left-center-inner
-                            } else if (zoneName.includes("left-top") || zoneName.includes("left-bottom")) {
-                                return 0.333; // Changed from 0.25 to 0.333 for left-top/bottom-inner
-                            } else {
-                                return 0.25; // Keep original value for other left-inner zones
-                            }
+                            // Left-inner zones are at 33.3%-50% of screen width (mirror of right-inner at 50%-66.7%)
+                            return 0.333;
                         }
                     } else if (zoneName.includes("right-top") || zoneName.includes("right-bottom") || zoneName.includes("right-center")) {
                         if (zoneName.includes("outer")) {
-                            if (zoneName.includes("right-center")) {
-                                return 0.75; // Right-center-outer starts at 75%
-                            } else if (zoneName.includes("right-top") || zoneName.includes("right-bottom")) {
-                                return 0.75; // Right-top/bottom-outer starts at 75%
-                            } else {
-                                return 0.75; // Default for other right-outer zones
-                            }
+                            // Right-outer zones are at 66.7%-75% of screen width
+                            return 0.667;
                         } else {
-                            if (zoneName.includes("right-center")) {
-                                return 0.667; // Right-center-inner starts at 66.7% (mirroring left-center-inner at 33.3%)
-                            } else if (zoneName.includes("right-top") || zoneName.includes("right-bottom")) {
-                                return 0.667; // Right-top/bottom-inner starts at 66.7%
-                            } else {
-                                return 0.65; // Default for other right-inner zones
-                            }
+                            // Right-inner zones are at 50%-66.7% of screen width
+                            return 0.50;
                         }
                     } else if (zoneName.includes("center-top") || zoneName.includes("center-bottom") || zoneName === "zone-center") {
                         return 0.35;
@@ -1271,30 +1251,25 @@ PlasmaCore.Dialog {
                     // Non-edge zones
                     else if (zoneName.includes("left") || zoneName.includes("right")) {
                         if (zoneName.includes("outer") || zoneName.includes("inner")) {
-                            if (zoneName === "zone-left-center-outer") {
+                            // LEFT SIDE ZONES
+                            if (zoneName.includes("left-center-outer") || zoneName.includes("left-top-outer") || zoneName.includes("left-bottom-outer")) {
                                 return 0.083; // Width from 25% to 33.3%
-                            } else if (zoneName === "zone-left-center-inner") {
+                            } else if (zoneName.includes("left-center-inner") || zoneName.includes("left-top-inner") || zoneName.includes("left-bottom-inner")) {
                                 return 0.167; // Width from 33.3% to 50%
-                            } else if (zoneName === "zone-left-top-outer" || zoneName === "zone-left-bottom-outer") {
-                                return 0.083; // Width from 25% to 33.3%
-                            } else if (zoneName === "zone-left-top-inner" || zoneName === "zone-left-bottom-inner") {
-                                return 0.167; // Width from 33.3% to 50%
-                            } else if (zoneName === "zone-right-center-outer") {
-                                return 0.083; // Width from 75% to 66.7%
-                            } else if (zoneName === "zone-right-center-inner") {
-                                return 0.167; // Width from 66.7% to 50%
-                            } else if (zoneName === "zone-right-top-outer" || zoneName === "zone-right-bottom-outer") {
-                                return 0.083; // Width from 75% to 66.7%
-                            } else if (zoneName === "zone-right-top-inner" || zoneName === "zone-right-bottom-inner") {
-                                return 0.167; // Width from 66.7% to 50%
+                            } 
+                            // RIGHT SIDE ZONES
+                            else if (zoneName.includes("right-center-outer") || zoneName.includes("right-top-outer") || zoneName.includes("right-bottom-outer")) {
+                                return 0.083; // Width from 66.7% to 75%
+                            } else if (zoneName.includes("right-center-inner") || zoneName.includes("right-top-inner") || zoneName.includes("right-bottom-inner")) {
+                                return 0.167; // Width from 50% to 66.7%
                             } else {
                                 return 0.15; // Default width for other outer/inner zones
                             }
                         } else {
-                            return 0.35;
+                            return 0.35; // Default width for larger zones
                         }
                     } else if (zoneName.includes("center")) {
-                        return 0.3;
+                        return 0.3; // Default width for center zones
                     }
                     
                     return 0.1;
@@ -1633,7 +1608,19 @@ PlasmaCore.Dialog {
     
     // Function to handle advanced edge snapping
     function checkAdvancedEdgeSnapping(debugOnly = false) {
-        if ((!config.enableAdvancedEdgeSnapping && !debugOnly) || !moving) return;
+        // Skip edge snapping if:
+        // 1. Advanced edge snapping is disabled and we're not in debug mode
+        // 2. No window is being moved
+        // 3. The zone selector is visible (expanded or near)
+        if ((!config.enableAdvancedEdgeSnapping && !debugOnly) || !moving || 
+            zoneSelector.expanded || zoneSelector.near) {
+            // Clear any current edge snapping zone if zone selector is visible
+            if (zoneSelector.expanded || zoneSelector.near) {
+                currentEdgeSnappingZone = "";
+                currentEdgeSnappingDistance = "";
+            }
+            return;
+        }
         
         try {
             /*
@@ -1674,8 +1661,8 @@ PlasmaCore.Dialog {
              * 
              * Horizontal boundaries:
              * - Edge zones: 0-5% (left edge), 35-65% (center), 95-100% (right edge)
-             * - Center zones: 10-25% (left-outer), 25-35% (left-inner), 35-65% (center), 
-             *                 65-75% (right-inner), 75-90% (right-outer)
+             * - Center zones: 5-25% (left-outer), 25-33.3% (left-inner), 33.3-66.7% (center), 
+             *                 66.7-75% (right-inner), 75-95% (right-outer)
              * 
              * Vertical boundaries:
              * - Edge zones: 0-5% (top edge), 95-100% (bottom edge)
@@ -2099,86 +2086,109 @@ PlasmaCore.Dialog {
                     
                     // If we still don't have a zone, use the original center zone detection logic as fallback
                     if (!currentZone) {
-                        // Divide the center into basic zones
-                        if (percentFromLeft < 50 && percentFromTop < 50) {
-                            // Top-left quadrant
-                            if (percentFromLeft < 25) {
-                                currentZone = "zone-left-top-outer";
-                                currentDistance = "close";
-                                console.log("Fallback: Detected zone-left-top-outer");
-                            } else {
-                                currentZone = "zone-left-top-inner";
-                                currentDistance = "close";
-                                console.log("Fallback: Detected zone-left-top-inner");
-                            }
-                        } else if (percentFromRight < 50 && percentFromTop < 50) {
-                            // Top-right quadrant
-                            if (percentFromRight < 25) {
-                                currentZone = "zone-right-top-outer";
-                                currentDistance = "close";
-                                console.log("Fallback: Detected zone-right-top-outer");
-                            } else {
-                                currentZone = "zone-right-top-inner";
-                                currentDistance = "close";
-                                console.log("Fallback: Detected zone-right-top-inner");
-                            }
-                        } else if (percentFromLeft < 50 && percentFromBottom < 50) {
-                            // Bottom-left quadrant
-                            if (percentFromLeft < 25) {
-                                currentZone = "zone-left-bottom-outer";
-                                currentDistance = "close";
-                                console.log("Fallback: Detected zone-left-bottom-outer");
-                            } else {
-                                currentZone = "zone-left-bottom-inner";
-                                currentDistance = "close";
-                                console.log("Fallback: Detected zone-left-bottom-inner");
-                            }
-                        } else if (percentFromRight < 50 && percentFromBottom < 50) {
-                            // Bottom-right quadrant
-                            if (percentFromRight < 25) {
-                                currentZone = "zone-right-bottom-outer";
-                                currentDistance = "close";
-                                console.log("Fallback: Detected zone-right-bottom-outer");
-                            } else {
-                                currentZone = "zone-right-bottom-inner";
-                                currentDistance = "close";
-                                console.log("Fallback: Detected zone-right-bottom-inner");
-                            }
-                        } else {
-                            // Pure center - check if we're closer to left/right or top/bottom
-                            if (percentFromLeft < percentFromRight && percentFromLeft < 35) {
+                        // Divide the center into quadrants and additional zones
+                        if (percentFromLeft < 50) {
+                            // Left half
+                            if (percentFromTop < 33) {
+                                // Top section
+                                if (percentFromLeft < 25) {
+                                    currentZone = "zone-left-top-outer";
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-left-top-outer: percentFromLeft=" + percentFromLeft.toFixed(2));
+                                } else if (percentFromLeft >= 25 && percentFromLeft < 33.3) {
+                                    currentZone = "zone-left-top-outer";
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-left-top-outer: percentFromLeft=" + percentFromLeft.toFixed(2));
+                                } else {
+                                    currentZone = "zone-left-top-inner";
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-left-top-inner: percentFromLeft=" + percentFromLeft.toFixed(2));
+                                }
+                            } else if (percentFromTop >= 33 && percentFromTop <= 66) {
+                                // Middle section (center)
                                 if (percentFromLeft < 25) {
                                     currentZone = "zone-left-center-outer";
-                                    console.log("Fallback: Detected zone-left-center-outer");
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-left-center-outer: percentFromLeft=" + percentFromLeft.toFixed(2));
                                 } else if (percentFromLeft >= 25 && percentFromLeft < 33.3) {
                                     currentZone = "zone-left-center-outer";
-                                    console.log("Fallback: Detected zone-left-center-outer");
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-left-center-outer: percentFromLeft=" + percentFromLeft.toFixed(2));
                                 } else {
                                     currentZone = "zone-left-center-inner";
-                                    console.log("Fallback: Detected zone-left-center-inner");
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-left-center-inner: percentFromLeft=" + percentFromLeft.toFixed(2));
                                 }
-                                currentDistance = "close";
-                            } else if (percentFromRight < percentFromLeft && percentFromRight < 35) {
-                                if (percentFromRight < 25) {
+                            } else {
+                                // Bottom section
+                                if (percentFromLeft < 25) {
+                                    currentZone = "zone-left-bottom-outer";
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-left-bottom-outer: percentFromLeft=" + percentFromLeft.toFixed(2));
+                                } else if (percentFromLeft >= 25 && percentFromLeft < 33.3) {
+                                    currentZone = "zone-left-bottom-outer";
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-left-bottom-outer: percentFromLeft=" + percentFromLeft.toFixed(2));
+                                } else {
+                                    currentZone = "zone-left-bottom-inner";
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-left-bottom-inner: percentFromLeft=" + percentFromLeft.toFixed(2));
+                                }
+                            }
+                        } else {
+                            // Right half
+                            if (percentFromTop < 33) {
+                                // Top section
+                                if (percentFromLeft > 75) {
+                                    currentZone = "zone-right-top-outer";
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-right-top-outer: percentFromLeft=" + percentFromLeft.toFixed(2));
+                                } else if (percentFromLeft > 66.7 && percentFromLeft <= 75) {
+                                    currentZone = "zone-right-top-outer";
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-right-top-outer: percentFromLeft=" + percentFromLeft.toFixed(2));
+                                } else {
+                                    currentZone = "zone-right-top-inner";
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-right-top-inner: percentFromLeft=" + percentFromLeft.toFixed(2));
+                                }
+                            } else if (percentFromTop >= 33 && percentFromTop <= 66) {
+                                // Middle section (center)
+                                if (percentFromLeft > 75) {
                                     currentZone = "zone-right-center-outer";
-                                    console.log("Fallback: Detected zone-right-center-outer");
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-right-center-outer: percentFromLeft=" + percentFromLeft.toFixed(2));
+                                } else if (percentFromLeft > 66.7 && percentFromLeft <= 75) {
+                                    currentZone = "zone-right-center-outer";
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-right-center-outer: percentFromLeft=" + percentFromLeft.toFixed(2));
                                 } else {
                                     currentZone = "zone-right-center-inner";
-                                    console.log("Fallback: Detected zone-right-center-inner");
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-right-center-inner: percentFromLeft=" + percentFromLeft.toFixed(2));
                                 }
-                                currentDistance = "close";
-                            } else if (percentFromTop < percentFromBottom && percentFromTop < 33) {
-                                currentZone = "zone-center-top";
-                                currentDistance = "close";
-                                console.log("Fallback: Detected zone-center-top");
-                            } else if (percentFromBottom < percentFromTop && percentFromBottom < 33) {
-                                currentZone = "zone-center-bottom";
-                                currentDistance = "close";
-                                console.log("Fallback: Detected zone-center-bottom");
                             } else {
+                                // Bottom section
+                                if (percentFromLeft > 75) {
+                                    currentZone = "zone-right-bottom-outer";
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-right-bottom-outer: percentFromLeft=" + percentFromLeft.toFixed(2));
+                                } else if (percentFromLeft > 66.7 && percentFromLeft <= 75) {
+                                    currentZone = "zone-right-bottom-outer";
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-right-bottom-outer: percentFromLeft=" + percentFromLeft.toFixed(2));
+                                } else {
+                                    currentZone = "zone-right-bottom-inner";
+                                    currentDistance = "close";
+                                    console.log("Fallback: Detected zone-right-bottom-inner: percentFromLeft=" + percentFromLeft.toFixed(2));
+                                }
+                            }
+                            
+                            // If still no zone detected and we're in the middle area
+                            if (!currentZone) {
                                 currentZone = "zone-center";
                                 currentDistance = "close";
-                                console.log("Fallback: Detected zone-center");
+                                console.log("Fallback: Detected zone-center as last resort");
                             }
                         }
                     }
