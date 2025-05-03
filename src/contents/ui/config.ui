@@ -401,362 +401,362 @@
             <property name="plainText">
              <string>[
     {
-        &quot;name&quot;: &quot;Priority Grid&quot;,
-        &quot;padding&quot;: 5,
-        &quot;zones&quot;: [
+        "name": "Priority Grid",
+        "padding": 5,
+        "zones": [
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 25
+                "x": 0,
+                "y": 0,
+                "height": 100,
+                "width": 25
             },
             {
-                &quot;x&quot;: 25,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 50
+                "x": 25,
+                "y": 0,
+                "height": 100,
+                "width": 50
             },
             {
-                &quot;x&quot;: 75,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 25
+                "x": 75,
+                "y": 0,
+                "height": 100,
+                "width": 25
             }
         ]
     },
     {
-        &quot;name&quot;: &quot;Priority Grid Half&quot;,
-        &quot;padding&quot;: 5,
-        &quot;zones&quot;: [
+        "name": "Priority Grid Half",
+        "padding": 5,
+        "zones": [
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 25
+                "x": 0,
+                "y": 0,
+                "height": 50,
+                "width": 25
             },
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 25
+                "x": 0,
+                "y": 50,
+                "height": 50,
+                "width": 25
             },
             {
-                &quot;x&quot;: 25,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 50
+                "x": 25,
+                "y": 0,
+                "height": 50,
+                "width": 50
             },
             {
-                &quot;x&quot;: 25,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 50
+                "x": 25,
+                "y": 50,
+                "height": 50,
+                "width": 50
             },
             {
-                &quot;x&quot;: 75,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 25
+                "x": 75,
+                "y": 0,
+                "height": 50,
+                "width": 25
             },
             {
-                &quot;x&quot;: 75,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 25
+                "x": 75,
+                "y": 50,
+                "height": 50,
+                "width": 25
             }
         ]
     },
     {
-        &quot;name&quot;: &quot;Tri-Column&quot;,
-        &quot;padding&quot;: 5,
-        &quot;zones&quot;: [
+        "name": "Tri-Column",
+        "padding": 5,
+        "zones": [
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 33.33
+                "x": 0,
+                "y": 0,
+                "height": 100,
+                "width": 33.33
             },
             {
-                &quot;x&quot;: 33.33,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 33.34
+                "x": 33.33,
+                "y": 0,
+                "height": 100,
+                "width": 33.34
             },
             {
-                &quot;x&quot;: 66.67,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 33.33
+                "x": 66.67,
+                "y": 0,
+                "height": 100,
+                "width": 33.33
             }
         ]
     },
     {
-        &quot;name&quot;: &quot;Tri-Column Half&quot;,
-        &quot;padding&quot;: 5,
-        &quot;zones&quot;: [
+        "name": "Tri-Column Half",
+        "padding": 5,
+        "zones": [
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 33.33
+                "x": 0,
+                "y": 0,
+                "height": 50,
+                "width": 33.33
             },
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 33.33
+                "x": 0,
+                "y": 50,
+                "height": 50,
+                "width": 33.33
             },
             {
-                &quot;x&quot;: 33.33,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 33.34
+                "x": 33.33,
+                "y": 0,
+                "height": 50,
+                "width": 33.34
             },
             {
-                &quot;x&quot;: 33.33,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 33.34
+                "x": 33.33,
+                "y": 50,
+                "height": 50,
+                "width": 33.34
             },
             {
-                &quot;x&quot;: 66.67,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 33.33
+                "x": 66.67,
+                "y": 0,
+                "height": 50,
+                "width": 33.33
             },
             {
-                &quot;x&quot;: 66.67,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 33.33
+                "x": 66.67,
+                "y": 50,
+                "height": 50,
+                "width": 33.33
             }
         ]
     },
     {
-        &quot;name&quot;: &quot;Four Vertical Strips&quot;,
-        &quot;padding&quot;: 5,
-        &quot;zones&quot;: [
+        "name": "Four Vertical Strips",
+        "padding": 5,
+        "zones": [
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 25
+                "x": 0,
+                "y": 0,
+                "height": 100,
+                "width": 25
             },
             {
-                &quot;x&quot;: 25,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 25
+                "x": 25,
+                "y": 0,
+                "height": 100,
+                "width": 25
             },
             {
-                &quot;x&quot;: 50,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 25
+                "x": 50,
+                "y": 0,
+                "height": 100,
+                "width": 25
             },
             {
-                &quot;x&quot;: 75,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 25
+                "x": 75,
+                "y": 0,
+                "height": 100,
+                "width": 25
             }
         ]
     },
     {
-        &quot;name&quot;: &quot;Four Vertical Strips Half&quot;,
-        &quot;padding&quot;: 5,
-        &quot;zones&quot;: [
+        "name": "Four Vertical Strips Half",
+        "padding": 5,
+        "zones": [
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 25
+                "x": 0,
+                "y": 0,
+                "height": 50,
+                "width": 25
             },
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 25
+                "x": 0,
+                "y": 50,
+                "height": 50,
+                "width": 25
             },
             {
-                &quot;x&quot;: 25,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 25
+                "x": 25,
+                "y": 0,
+                "height": 50,
+                "width": 25
             },
             {
-                &quot;x&quot;: 25,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 25
+                "x": 25,
+                "y": 50,
+                "height": 50,
+                "width": 25
             },
             {
-                &quot;x&quot;: 50,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 25
+                "x": 50,
+                "y": 0,
+                "height": 50,
+                "width": 25
             },
             {
-                &quot;x&quot;: 50,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 25
+                "x": 50,
+                "y": 50,
+                "height": 50,
+                "width": 25
             },
             {
-                &quot;x&quot;: 75,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 25
+                "x": 75,
+                "y": 0,
+                "height": 50,
+                "width": 25
             },
             {
-                &quot;x&quot;: 75,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 25
+                "x": 75,
+                "y": 50,
+                "height": 50,
+                "width": 25
             }
         ]
     },
     {
-        &quot;name&quot;: &quot;Dual&quot;,
-        &quot;padding&quot;: 5,
-        &quot;zones&quot;: [
+        "name": "Dual",
+        "padding": 5,
+        "zones": [
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 50
+                "x": 0,
+                "y": 0,
+                "height": 100,
+                "width": 50
             },
             {
-                &quot;x&quot;: 50,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 50
+                "x": 50,
+                "y": 0,
+                "height": 100,
+                "width": 50
             }
         ]
     },
     {
-        &quot;name&quot;: &quot;Quadrant Grid&quot;,
-        &quot;padding&quot;: 5,
-        &quot;zones&quot;: [
+        "name": "Quadrant Grid",
+        "padding": 5,
+        "zones": [
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 50
+                "x": 0,
+                "y": 0,
+                "height": 50,
+                "width": 50
             },
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 50
+                "x": 0,
+                "y": 50,
+                "height": 50,
+                "width": 50
             },
             {
-                &quot;x&quot;: 50,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 50
+                "x": 50,
+                "y": 50,
+                "height": 50,
+                "width": 50
             },
             {
-                &quot;x&quot;: 50,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 50
+                "x": 50,
+                "y": 0,
+                "height": 50,
+                "width": 50
             }
         ]
     },
     {
-        &quot;name&quot;: &quot;Dual Asymmetrical Left&quot;,
-        &quot;padding&quot;: 5,
-        &quot;zones&quot;: [
+        "name": "Dual Asymmetrical Left",
+        "padding": 5,
+        "zones": [
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 66.7
+                "x": 0,
+                "y": 0,
+                "height": 100,
+                "width": 66.7
             },
             {
-                &quot;x&quot;: 66.7,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 33.3
+                "x": 66.7,
+                "y": 0,
+                "height": 100,
+                "width": 33.3
             }
         ]
     },
     {
-        &quot;name&quot;: &quot;Dual Asymmetrical Right&quot;,
-        &quot;padding&quot;: 5,
-        &quot;zones&quot;: [
+        "name": "Dual Asymmetrical Right",
+        "padding": 5,
+        "zones": [
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 33.3
+                "x": 0,
+                "y": 0,
+                "height": 100,
+                "width": 33.3
             },
             {
-                &quot;x&quot;: 33.3,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 100,
-                &quot;width&quot;: 66.7
+                "x": 33.3,
+                "y": 0,
+                "height": 100,
+                "width": 66.7
             }
         ]
     },
     {
-        &quot;name&quot;: &quot;Dual Asymmetrical Left Half&quot;,
-        &quot;padding&quot;: 5,
-        &quot;zones&quot;: [
+        "name": "Dual Asymmetrical Left Half",
+        "padding": 5,
+        "zones": [
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 66.7
+                "x": 0,
+                "y": 0,
+                "height": 50,
+                "width": 66.7
             },
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 66.7
+                "x": 0,
+                "y": 50,
+                "height": 50,
+                "width": 66.7
             },
             {
-                &quot;x&quot;: 66.6,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 33.3
+                "x": 66.6,
+                "y": 0,
+                "height": 50,
+                "width": 33.3
             },
             {
-                &quot;x&quot;: 66.6,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 33.3
+                "x": 66.6,
+                "y": 50,
+                "height": 50,
+                "width": 33.3
             }
         ]
     },
     {
-        &quot;name&quot;: &quot;Dual Asymmetrical Right Half&quot;,
-        &quot;padding&quot;: 5,
-        &quot;zones&quot;: [
+        "name": "Dual Asymmetrical Right Half",
+        "padding": 5,
+        "zones": [
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 33.3
+                "x": 0,
+                "y": 0,
+                "height": 50,
+                "width": 33.3
             },
             {
-                &quot;x&quot;: 0,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 33.3
+                "x": 0,
+                "y": 50,
+                "height": 50,
+                "width": 33.3
             },
             {
-                &quot;x&quot;: 30,
-                &quot;y&quot;: 0,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 66.7
+                "x": 30,
+                "y": 0,
+                "height": 50,
+                "width": 66.7
             },
             {
-                &quot;x&quot;: 30,
-                &quot;y&quot;: 50,
-                &quot;height&quot;: 50,
-                &quot;width&quot;: 66.7
+                "x": 30,
+                "y": 50,
+                "height": 50,
+                "width": 66.7
             }
         ]
     }
@@ -787,7 +787,7 @@
           <item>
            <widget class="QLabel" name="label_edgeSnappingLayoutsExplanation">
             <property name="text">
-             <string>Configure which layouts should be activated when the cursor approaches different screen edges at different distances. Each zone can have different layouts for different distances (far, medium, close). Use layout names instead of indices to make configurations more readable. Note: The distance thresholds (far=[15,10], medium=[10,5], close=[5,0]) are hardcoded and not configurable.</string>
+             <string>Configure which layouts should be activated when the cursor approaches different screen edges at different distances. Each zone can have different layouts for different distances (far, medium, close). Use layout names instead of indices to make configurations more readable. Note: The distance thresholds for edge zones (far=[6,4], medium=[4,2], close=[2,0]) and central areas (far=[15,10], medium=[10,5], close=[5,0]) are hardcoded and not configurable.</string>
             </property>
             <property name="wordWrap">
              <bool>true</bool>
@@ -798,42 +798,41 @@
            <widget class="QPlainTextEdit" name="kcfg_edgeSnappingLayoutsJson">
             <property name="plainText">
              <string>{
-    "zones": {
-        "zone-left-edge": { "far": "Dual Asymmetrical Left", "medium": "Tri-Column", "close": "Priority Grid" },
-        "zone-right-edge": { "far": "Dual Asymmetrical Right", "medium": "Tri-Column", "close": "Priority Grid" },
-        "zone-left-top-edge": { "far": "Quadrant Grid", "medium": "Six Equal Squares", "close": "Four Vertical Strips" },
-        "zone-right-top-edge": { "far": "Quadrant Grid", "medium": "Six Equal Squares", "close": "Four Vertical Strips" },
-        "zone-left-bottom-edge": { "far": "Quadrant Grid", "medium": "Six Equal Squares", "close": "Tri-Column with Quadrants at the Sides" },
-        "zone-right-bottom-edge": { "far": "Quadrant Grid", "medium": "Six Equal Squares", "close": "Tri-Column with Quadrants at the Sides" },
-        
-        "zone-left-top": { "far": "Dual Asymmetrical Left", "medium": "Quadrant Grid", "close": "Tri-Column" },
-        "zone-right-top": { "far": "Dual Asymmetrical Right", "medium": "Quadrant Grid", "close": "Tri-Column" },
-        "zone-center-top": { "close": "Priority Grid" },
-        "zone-left-bottom": { "far": "Dual Asymmetrical Left", "medium": "Quadrant Grid", "close": "Tri-Column" },
-        "zone-right-bottom": { "far": "Dual Asymmetrical Right", "medium": "Quadrant Grid", "close": "Tri-Column" },
-        "zone-center-bottom": { "close": "Priority Grid" },
-        
-        "zone-center": { "close": "Quadrant Grid" },
-        "zone-left-center-outer": { "close": "Dual Asymmetrical Left" },
-        "zone-left-center-inner": { "close": "Tri-Column" },
-        "zone-right-center-outer": { "close": "Dual Asymmetrical Right" },
-        "zone-right-center-inner": { "close": "Tri-Column" },
-        
-        "zone-left-top-outer": { "close": "Quadrant Grid" },
-        "zone-left-top-inner": { "close": "Six Equal Squares" },
-        "zone-right-top-outer": { "close": "Quadrant Grid" },
-        "zone-right-top-inner": { "close": "Six Equal Squares" },
-        "zone-left-bottom-outer": { "close": "Quadrant Grid" },
-        "zone-left-bottom-inner": { "close": "Six Equal Squares" },
-        "zone-right-bottom-outer": { "close": "Quadrant Grid" },
-        "zone-right-bottom-inner": { "close": "Six Equal Squares" }
-    },
-    "distances": {
-        "far": [15, 10],
-        "medium": [10, 5],
-        "close": [5, 0]
-    }
-}</string>
+            zones: {
+                // Edge zones
+                "zone-left-edge": { far: "Dual", medium: "Tri-Column", close: "Four Vertical Strips" },
+                "zone-right-edge": { far: "Dual", medium: "Tri-Column", close: "Four Vertical Strips" },
+                "zone-left-top-edge": { far: "Quadrant Grid", medium: "Six Equal Squares", close: "Four Vertical Strips" },
+                "zone-right-top-edge": { far: "Quadrant Grid", medium: "Six Equal Squares", close: "Four Vertical Strips" },
+                "zone-left-bottom-edge": { far: "Quadrant Grid", medium: "Six Equal Squares", close: "Tri-Column with Quadrants at the Sides" },
+                "zone-right-bottom-edge": { far: "Quadrant Grid", medium: "Six Equal Squares", close: "Tri-Column with Quadrants at the Sides" },
+                
+                // Top/Bottom zones
+                "zone-left-top": { far: "Dual Asymmetrical Left", medium: "Quadrant Grid", close: "Tri-Column" },
+                "zone-right-top": { far: "Dual Asymmetrical Right", medium: "Quadrant Grid", close: "Tri-Column" },
+                "zone-center-top": { close: "Priority Grid" },
+                "zone-left-bottom": { far: "Dual Asymmetrical Left", medium: "Quadrant Grid", close: "Tri-Column" },
+                "zone-right-bottom": { far: "Dual Asymmetrical Right", medium: "Quadrant Grid", close: "Tri-Column" },
+                "zone-center-bottom": { close: "Priority Grid" },
+                
+                // Center zones
+                "zone-center": { close: "Tri-Column" },
+                "zone-left-center-outer": { close: "Dual Asymmetrical Left" },
+                "zone-left-center-inner": { close: "Four Vertical Strips" },
+                "zone-right-center-outer": { close: "Dual Asymmetrical Right" },
+                "zone-right-center-inner": { close: "Four Vertical Strips" },
+                
+                // Corner zones
+                "zone-left-top-outer": { close: "Dual Asymmetrical Left Half" },
+                "zone-left-top-inner": { close: "Four Vertical Strips Half" },
+                "zone-right-top-outer": { close: "Dual Asymmetrical Right Half" },
+                "zone-right-top-inner": { close: "Four Vertical Strips Half" },
+                "zone-left-bottom-outer": { close: "Dual Asymmetrical Left Half" },
+                "zone-left-bottom-inner": { close: "Four Vertical Strips Half" },
+                "zone-right-bottom-outer": { close: "Dual Asymmetrical Right Half" },
+                "zone-right-bottom-inner": { close: "Four Vertical Strips Half" }
+            }
+            }</string>
             </property>
            </widget>
           </item>
